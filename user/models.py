@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 class Profile(models.Model):
+    # one user can have profile and the profile can have profile pix
     user = models.OneToOneField(User,on_delete = models.CASCADE)
     image = models.ImageField(default="default.jpg", upload_to= "profile_pics")
 
