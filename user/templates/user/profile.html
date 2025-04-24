@@ -1,6 +1,97 @@
-{% extends "blog/base.html" %}
+
+     {% extends "blog/base.html" %}
 {% block content %}
-<h1>{{ user.username }}</h1>
-            
-    {% endblock content %}
-   
+
+<style>
+    .profile-container {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 30px;
+        border-radius: 10px;
+        background-color: #f8f9fa;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        font-family: Arial, sans-serif;
+    }
+
+    .profile-image {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 20px;
+        border: 3px solid #ccc;
+    }
+
+    .profile-info h2 {
+        margin: 10px 0 5px;
+    }
+
+    .profile-info p {
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .profile-form fieldset {
+        border: none;
+        padding: 0;
+        margin: 0;
+        text-align: left;
+    }
+
+    .profile-form legend {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .profile-form input[type="text"],
+    .profile-form input[type="email"],
+    .profile-form input[type="file"],
+    .profile-form input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        margin-bottom: 15px;
+    }
+
+    .btn {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="profile-container">
+    <img src="{{ user.profile.image.url }}" alt="Profile Image" class="profile-image">
+
+    <div class="profile-info">
+        <h2>{{ user.username }}</h2>
+        <p>{{ user.email }}</p>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" class="profile-form">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Update Profile</legend>
+            {{ form.as_p }}
+        </fieldset>
+        <div style="text-align: center; margin-top: 15px;">
+            <button type="submit" class="btn">Update</button>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}
+ 
